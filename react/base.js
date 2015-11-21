@@ -1,16 +1,37 @@
+var _ = require('lodash');
 var path = require('path');
 var join = path.join;
 var webpack = require('webpack');
 var WebpackConfig = require('webpack-config');
-//var packageConfig = require('./package.json');
 var here = require('../utils/here');
 
-
-var publicPath = '/';
 var srcPath = here('src');
 
-module.exports = new WebpackConfig().extend(join(__dirname, '../common/base')).merge({
-	entry: require('../utils/generateEntryPoints')(),
+var config = {};
+config[join(__dirname, '../common/base')] = function (config) {
+
+	var knownModuleSpaces = {
+		'examples/index': './examples',
+		'app/index': './public',
+		index: './src'
+	};
+	_.each(knownModuleSpaces, function (moduleName, outputPath) {
+		var modulePath = here(moduleName);
+		try {
+			require.resolve(modulePath);
+			console.error('module space "' + modulePath + '" present!');
+			if(!config.entry) {
+				config.entry = {};
+			}
+			config.entry[outputPath] = [moduleName];
+		} catch (e) {}
+	});
+
+	return config;
+};
+
+
+module.exports = new WebpackConfig().extend(config).merge({
 	resolve: {
 		extensions: ['', '.js', '.jsx'],
 		alias: {
@@ -24,9 +45,9 @@ module.exports = new WebpackConfig().extend(join(__dirname, '../common/base')).m
 		}
 	},
 	output: {
-		path: here('dist'),
+		path: here('./lib'),
 		filename: '[name].js',
-		publicPath: publicPath
+		//publicPath: '/'
 	},
 	module: {
 		preLoaders: [

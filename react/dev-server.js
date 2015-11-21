@@ -1,9 +1,9 @@
 var _ = require('lodash');
+var fs = require('fs');
 var path = require('path');
 var webpack = require('webpack');
 var WebpackConfig = require('webpack-config');
 var here = require('../utils/here');
-
 var rmdir = require('rimraf');
 var WebpackDevServer = require('webpack-dev-server');
 
@@ -13,10 +13,8 @@ var ip = '127.0.0.1';
 
 var publicPath = '/';
 
-var entry = require('../utils/generateEntryPoints')(true);
-
 var devConfig = {};
-devConfig[path.join(__dirname, './dev')] = function (config) {
+devConfig[path.join(__dirname, './base')] = function (config) {
 	_.each(config.entry, function (entry, key) {
 		if (_.isArray(entry)) {
 			config.entry[key].unshift('webpack/hot/only-dev-server');
@@ -31,7 +29,7 @@ devConfig[path.join(__dirname, './dev')] = function (config) {
 };
 
 var config = module.exports = new WebpackConfig().extend(devConfig).merge({
-	entry: entry,
+	//entry: entry,
 	//cache: true,
 	//devtool: 'eval',
 	plugins: [
@@ -48,9 +46,21 @@ var config = module.exports = new WebpackConfig().extend(devConfig).merge({
 		]
 	}
 });
-//
-//console.log(config.module.loaders);
+
+//console.log(process);
 //process.exit();
+
+var contentBase = here();
+try {
+	fs.statSync(here('examples'));
+	contentBase = here('examples');
+} catch (e) {
+}
+try {
+	fs.statSync(here('public'));
+	contentBase = here('public');
+} catch (e) {
+}
 
 // cleanup build directory
 rmdir(config.output.path, function (error) {
@@ -60,7 +70,7 @@ rmdir(config.output.path, function (error) {
 	}
 
 	new WebpackDevServer(webpack(config), {
-		contentBase: here('public'),
+		contentBase: contentBase,
 		historyApiFallback: true,
 		hot: true,
 		inline: true,
@@ -69,12 +79,12 @@ rmdir(config.output.path, function (error) {
 		publicPath: publicPath,
 		noInfo: false
 	}).listen(port, ip, function (err) {
-			if (err) {
-				return console.log(err);
-			}
+		if (err) {
+			return console.log(err);
+		}
 
-			console.log('Listening at ' + ip + ':' + port);
-		});
+		console.log('Listening at ' + ip + ':' + port);
+	});
 });
 
 

@@ -3,7 +3,17 @@ var webpack = require('webpack');
 var WebpackConfig = require('webpack-config');
 var here = require('../utils/here');
 
-module.exports = new WebpackConfig().merge({
+var config = new WebpackConfig();
+
+var externalConfigPath = here('webpack.config.js');
+try {
+	var externalConfig = require(externalConfigPath);
+	config.merge(externalConfig);
+} catch (e) {
+	console.log('External config not specified.');
+}
+
+module.exports = config.merge({
 	resolve: {
 		//modulesDirectories: [path.join(__dirname, "..", "node_modules")],
 		root: path.join(__dirname, "..", "node_modules"),
