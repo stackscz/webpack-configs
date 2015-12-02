@@ -25,11 +25,11 @@ module.exports = config.merge({
 	},
 	module: {
 		preLoaders: [
-			{
-				test: /\.(js|jsx)$/,
-				include: here('src'),
-				loader: 'eslint'
-			}
+			//{
+			//	test: /\.(js|jsx)$/,
+			//	include: here('src'),
+			//	loader: 'eslint'
+			//}
 		],
 		loaders: [
 			{
@@ -53,7 +53,7 @@ module.exports = config.merge({
 				loader: 'url?limit=32768&name=[hash].[ext]'
 			},
 			{
-				test: /\.(jpe?g|png|gif|svg)$/i,
+				test: /\.(jpe?g|png|gif)$/i,
 				loaders: [
 					'url?limit=32768&name=[hash].[ext]',
 					'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
