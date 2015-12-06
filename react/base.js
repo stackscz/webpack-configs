@@ -40,7 +40,8 @@ module.exports = new WebpackConfig().extend(config).merge({
 			components: join(srcPath, 'components'),
 			containers: join(srcPath, 'containers'),
 			store: join(srcPath, 'store'),
-			styles: join(srcPath, 'styles')
+			styles: join(srcPath, 'styles'),
+			utils: join(srcPath, 'utils'),
 			//config: srcPath + '/config/' + process.env.REACT_WEBPACK_ENV
 		}
 	},
