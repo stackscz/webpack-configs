@@ -25,28 +25,28 @@ module.exports = config.merge({
 	},
 	module: {
 		preLoaders: [
-			//{
-			//	test: /\.(js|jsx)$/,
-			//	include: here('src'),
-			//	loader: 'eslint'
-			//}
+			{
+				test: /\.(js|jsx)$/,
+				include: here('src'),
+				loader: 'eslint'
+			}
 		],
 		loaders: [
 			{
 				test: /\.css$/,
-				loader: 'style!css'
+				loader: 'style!css',
 			},
-			{
-				test: /\.sass/,
-				loader: 'style!css!sass?outputStyle=expanded&indentedSyntax'
-			},
-			{
-				test: /\.scss/,
-				loader: 'style!css!sass?outputStyle=expanded'
-			},
+			//{
+			//	test: /\.sass/,
+			//	loader: 'style!css!sass?outputStyle=expanded&indentedSyntax'
+			//},
+			//{
+			//	test: /\.scss/,
+			//	loader: 'style!css!sass?outputStyle=expanded'
+			//},
 			{
 				test: /\.less/,
-				loader: 'style!css!less'
+				loader: 'style!css!less',
 			},
 			{
 				test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9\.=\-]+)?$/,
@@ -60,8 +60,5 @@ module.exports = config.merge({
 				]
 			},
 		]
-	},
-	eslint: {
-		configFile: path.join(__dirname, '../.eslintrc')
 	}
 });

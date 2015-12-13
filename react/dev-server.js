@@ -86,13 +86,3 @@ rmdir(config.output.path, function (error) {
 		console.log('Listening at ' + ip + ':' + port);
 	});
 });
-
-
-//, {
-//	publicPath: config.output.publicPath,
-//		historyApiFallback: true,
-//		contentBase: __dirname + '/assets/',
-//		hot: true,
-//		inline: true,
-//		stats: {colors: true}
-//}

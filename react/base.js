@@ -42,7 +42,8 @@ module.exports = new WebpackConfig().extend(config).merge({
 			store: join(srcPath, 'store'),
 			styles: join(srcPath, 'styles'),
 			utils: join(srcPath, 'utils'),
-			//config: srcPath + '/config/' + process.env.REACT_WEBPACK_ENV
+			//react: here('node_modules/react'),
+			//config: join(srcPath, 'config')
 		}
 	},
 	output: {
@@ -54,15 +55,22 @@ module.exports = new WebpackConfig().extend(config).merge({
 		preLoaders: [
 			{
 				test: /\/(components|containers)\/.+\.(js|jsx)$/,
-				loader: 'baggage?index.less'
+				loader: 'baggage?index.less',
+				include: [here('src'), here('examples')]
 			}
 		],
 		loaders: [
 			{
 				test: /\.(js|jsx)$/,
 				loaders: ['babel?cacheDirectory=true&presets[]=es2015&presets[]=react&presets[]=stage-0'],
-				include: [here('src'), here('examples')],
+				include: [here('src'), here('examples')]
 			}
 		]
+	},
+	eslint: {
+		configFile: path.join(__dirname, '.eslintrc.js')
 	}
 });
+
+//console.log(module.exports.module.loaders);
+//process.exit();

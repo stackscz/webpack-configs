@@ -34,3 +34,6 @@ module.exports = new WebpackConfig().extend(config).merge({
 		new ExtractTextPlugin('[name].css'),
 	]
 });
+
+//console.log(module.exports.module.loaders);
+//process.exit();
