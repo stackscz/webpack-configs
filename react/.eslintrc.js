@@ -5,7 +5,10 @@ module.exports = {
 	"rules": {
 		"indent": [
 			2,
-			"tab"
+			"tab",
+			{
+				"SwitchCase": 1
+			}
 		],
 		"quotes": [
 			2,
@@ -21,7 +24,8 @@ module.exports = {
 		],
 		"prefer-const": [
 			2
-		]
+		],
+		"no-unused-vars": [2, {"varsIgnorePattern": "React"}]
 	},
 	"env": {
 		"es6": true,
@@ -39,4 +43,4 @@ module.exports = {
 	"plugins": [
 		"react"
 	]
-}
+};
