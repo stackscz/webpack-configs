@@ -49,7 +49,7 @@ module.exports = new WebpackConfig().extend(config).merge({
 	output: {
 		path: here('./lib'),
 		filename: '[name].js',
-		//publicPath: '/'
+		publicPath: '/'
 	},
 	module: {
 		preLoaders: [

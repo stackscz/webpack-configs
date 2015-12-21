@@ -3,6 +3,10 @@ var webpack = require('webpack');
 var WebpackConfig = require('webpack-config');
 var here = require('../utils/here');
 
+var Webpack_isomorphic_tools_plugin = require('webpack-isomorphic-tools/plugin');
+
+var webpack_isomorphic_tools_plugin = new Webpack_isomorphic_tools_plugin(require('../webpack-isomorphic-tools-configuration')).development();
+
 var config = new WebpackConfig();
 
 var externalConfigPath = here('webpack.config.js');
@@ -23,6 +27,9 @@ module.exports = config.merge({
 		//root: path.join(__dirname, "..", "node_modules"),
 		fallback: path.join(__dirname, "..", "node_modules")
 	},
+	plugins: [
+		webpack_isomorphic_tools_plugin
+	],
 	module: {
 		preLoaders: [
 			{
@@ -45,7 +52,8 @@ module.exports = config.merge({
 			//	loader: 'style!css!sass?outputStyle=expanded'
 			//},
 			{
-				test: /\.less/,
+				//test: /\.less/,
+				test: webpack_isomorphic_tools_plugin.regular_expression('styles'),
 				loader: 'style!css!less',
 			},
 			{
@@ -53,7 +61,7 @@ module.exports = config.merge({
 				loader: 'url?limit=32768&name=[hash].[ext]'
 			},
 			{
-				test: /\.(jpe?g|png|gif)$/i,
+				test: webpack_isomorphic_tools_plugin.regular_expression('images'),
 				loaders: [
 					'url?limit=32768&name=[hash].[ext]',
 					'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
@@ -62,3 +70,6 @@ module.exports = config.merge({
 		]
 	}
 });
+
+//console.log(webpack_isomorphic_tools_plugin.regular_expression('fonts'));
+//process.exit();

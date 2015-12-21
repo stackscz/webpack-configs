@@ -36,6 +36,9 @@ var config = module.exports = new WebpackConfig().extend(devConfig).merge({
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.NoErrorsPlugin()
 	],
+	output: {
+		publicPath: 'http://127.0.0.1:8080/'
+	},
 	module: {
 		loaders: [
 			//{
@@ -46,9 +49,6 @@ var config = module.exports = new WebpackConfig().extend(devConfig).merge({
 		]
 	}
 });
-
-//console.log(process);
-//process.exit();
 
 var contentBase = here();
 try {
@@ -74,7 +74,10 @@ rmdir(config.output.path, function (error) {
 		historyApiFallback: true,
 		hot: true,
 		inline: true,
-		stats: {colors: true},
+		stats: {
+			progress: true,
+			colors: true
+		},
 		port: port,
 		publicPath: publicPath,
 		noInfo: false
