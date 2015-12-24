@@ -62,7 +62,7 @@ module.exports = new WebpackConfig().extend(config).merge({
 		loaders: [
 			{
 				test: /\.(js|jsx)$/,
-				loaders: ['babel?cacheDirectory=true&presets[]=es2015&presets[]=react&presets[]=stage-0'],
+				loaders: ['babel?cacheDirectory=true&presets[]=es2015&presets[]=react&presets[]=stage-0&plugins[]=transform-decorators-legacy'],
 				include: [here('src'), here('examples')]
 			}
 		]
