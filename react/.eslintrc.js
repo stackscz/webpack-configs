@@ -25,7 +25,8 @@ module.exports = {
 		"prefer-const": [
 			2
 		],
-		"no-unused-vars": [2, {"varsIgnorePattern": "React"}]
+		"no-unused-vars": [2, {"varsIgnorePattern": "React"}],
+		"no-mixed-spaces-and-tabs": [2, "smart-tabs"]
 	},
 	"env": {
 		"es6": true,
