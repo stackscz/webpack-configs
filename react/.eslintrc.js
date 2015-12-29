@@ -26,7 +26,8 @@ module.exports = {
 			2
 		],
 		"no-unused-vars": [2, {"varsIgnorePattern": "React"}],
-		"no-mixed-spaces-and-tabs": [2, "smart-tabs"]
+		"no-mixed-spaces-and-tabs": [2, "smart-tabs"],
+		"no-console": [0]
 	},
 	"env": {
 		"es6": true,
