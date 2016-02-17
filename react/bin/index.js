@@ -156,16 +156,17 @@ function forAllApps(cb) {
 	}
 
 	var apps = [];
-	_.each(appNames, function (appName) {
-		apps.push({
-			name: appName,
-			dir: here('apps', appName)
-		});
-	});
 	if (!targetAppName) {
 		apps.unshift({
 			name: 'root',
 			dir: here('.')
+		});
+	} else {
+		_.each(appNames, function (appName) {
+			apps.push({
+				name: appName,
+				dir: here('apps', appName)
+			});
 		});
 	}
 

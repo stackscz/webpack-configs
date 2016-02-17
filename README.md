@@ -4,8 +4,9 @@ Enables your `react` web project to be built with `webpack` out of the box with 
 
 ## Installation
 
-`cd` into your project directory and run
+Make sure you are using `node@5` and `npm@3` (use `nvm` to switch painlessly, this requirement will be dropped in future release), then `cd` into your clean project directory and run
 
+    npm init
     npm i -S https://github.com/stackscz/webpack-configs
 
 ## Usage
@@ -17,9 +18,19 @@ Enables your `react` web project to be built with `webpack` out of the box with 
 - `public` folder contains static assets served by webpack-dev-server, namely `index.html` of your app (optional)
 - `lib` folder is automatically created during build, it's content is also served by webpack-dev-server so there might be conflicts with files `public` folder if you let that to happen 
 
-Additinally, `apps` folder can be created to host multiple experimental apps separately. 
+Additionally, `apps` folder can be created to host multiple experimental apps separately. 
 Those should have same structure as described above. 
 For example `apps/myapp/src` contains sources of `myapp`.
+
+Here is `index.html` 7-liner
+
+    <!DOCTYPE html>
+    <html>
+    <head></head>
+    <body>
+    <script src="/index.js"></script>
+    </body>
+    </html>
 
 ### Building project
 
