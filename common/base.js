@@ -13,15 +13,16 @@ var externalConfigPath = here('webpack.config.js');
 try {
 	var externalConfig = require(externalConfigPath);
 	config.merge(externalConfig);
+	console.log('Using external config.');
 } catch (e) {
-	console.log('External config not specified.');
+	console.log('External config not found.');
 }
 
 module.exports = config.merge({
 	resolve: {
-		//modulesDirectories: [path.join(__dirname, "..", "node_modules")],
-		root: path.join(__dirname, "..", "node_modules"),
-		//fallback: path.join(__dirname, "..", "node_modules")
+		//modulesDirectories: [here('node_modules')],
+		root: here('node_modules'),
+		fallback: here('node_modules')
 	},
 	resolveLoader: {
 		//root: path.join(__dirname, "..", "node_modules"),
@@ -34,11 +35,15 @@ module.exports = config.merge({
 		preLoaders: [
 			{
 				test: /\.(js|jsx)$/,
-				include: here('src'),
+				include: [here('src'), here('apps')],
 				loader: 'eslint'
 			}
 		],
 		loaders: [
+			{
+				test: /\.json$/,
+				loader: 'raw!json',
+			},
 			{
 				test: /\.css$/,
 				loader: 'style!css',

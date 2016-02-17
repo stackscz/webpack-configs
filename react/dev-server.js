@@ -4,14 +4,26 @@ var path = require('path');
 var webpack = require('webpack');
 var WebpackConfig = require('webpack-config');
 var here = require('../utils/here');
-var rmdir = require('rimraf');
-var WebpackDevServer = require('webpack-dev-server');
+//var rmdir = require('rimraf');
+//var WebpackDevServer = require('webpack-dev-server');
 
 var port = 8080;
 var ip = '127.0.0.1';
 
 
 var publicPath = '/';
+var contentBase = here();
+try {
+	fs.statSync(here('examples'));
+	contentBase = here('examples');
+} catch (e) {
+}
+try {
+	fs.statSync(here('public'));
+	contentBase = here('public');
+} catch (e) {
+}
+
 
 var devConfig = {};
 devConfig[path.join(__dirname, './base')] = function (config) {
@@ -22,7 +34,13 @@ devConfig[path.join(__dirname, './base')] = function (config) {
 		}
 	});
 
-	_.find(config.module.loaders, {test: /\.(js|jsx)$/}).loaders.unshift('react-hot');
+	config.module.loaders.unshift({
+		test: /\.(js|jsx)$/,
+		loader: 'react-hot',
+		include: [here('src'), here('examples'), here('apps')]
+	});
+	//_.find(config.module.loaders, {test: /\.(js|jsx)$/}).loaders.unshift('react-hot');
+
 
 
 	return config;
@@ -50,42 +68,22 @@ var config = module.exports = new WebpackConfig().extend(devConfig).merge({
 	}
 });
 
-var contentBase = here();
-try {
-	fs.statSync(here('examples'));
-	contentBase = here('examples');
-} catch (e) {
-}
-try {
-	fs.statSync(here('public'));
-	contentBase = here('public');
-} catch (e) {
-}
 
 // cleanup build directory
-rmdir(config.output.path, function (error) {
-	if (error) {
-		console.error(error);
-		return;
-	}
+//rmdir(config.output.path, function (error) {
+//	if (error) {
+//		console.error(error);
+//		return;
+//	}
+//
+//	new WebpackDevServer(webpack(config)).listen(port, ip, function (err) {
+//		if (err) {
+//			return console.log(err);
+//		}
+//
+//		console.log('Listening at ' + ip + ':' + port);
+//	});
+//});
 
-	new WebpackDevServer(webpack(config), {
-		contentBase: contentBase,
-		historyApiFallback: true,
-		hot: true,
-		inline: true,
-		stats: {
-			progress: true,
-			colors: true
-		},
-		port: port,
-		publicPath: publicPath,
-		noInfo: false
-	}).listen(port, ip, function (err) {
-		if (err) {
-			return console.log(err);
-		}
-
-		console.log('Listening at ' + ip + ':' + port);
-	});
-});
+//console.log(config);
+//process.exit();
