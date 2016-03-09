@@ -1,4 +1,4 @@
-[DEPRECATED]
+[DEPRECATED] see [re-app-builder](https://github.com/stackscz/re-app-builder)
 
 # webpack-configs
 
