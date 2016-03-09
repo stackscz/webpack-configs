@@ -1,4 +1,6 @@
-# React App Builder
+[DEPRECATED]
+
+# webpack-configs
 
 Enables your `react` web project to be built with `webpack` out of the box with most common configuration. 
 
